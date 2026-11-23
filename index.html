@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Rayen Zaghdoudi, AI engineering student at TEK-UP. Agentic AI, NLP, RAG and MLOps projects, with architecture case studies.">
+<meta property="og:title" content="Rayen Zaghdoudi Portfolio">
+<meta property="og:description" content="AI engineering student. Agentic AI, NLP, RAG and MLOps case studies.">
+<meta property="og:type" content="website">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Rayen Zaghdoudi Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long scroll, 1040px column, a single signature diagram in the case study. Dark first, light toggle. */
+:root{
+  --bg:#0b0d12; --surface:#12151d; --surface2:#171b25; --line:#262c3b;
+  --fg:#e8eaf0; --muted:#a0a9bc; --blue:#7c9cff; --violet:#a08bff; --cyan:#5ad1e6;
+  --glow:rgba(124,156,255,.16);
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f5f6fa; --surface:#ffffff; --surface2:#eef0f6; --line:#d6dae6;
+  --fg:#12151d; --muted:#4d566b; --blue:#2f55d4; --violet:#6445d6; --cyan:#0b7f95;
+  --glow:rgba(47,85,212,.10); color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);margin:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;background-attachment:fixed;background-position:-1px -1px}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0,transparent 0,var(--bg) 75%);z-index:-1}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.1;margin:0;text-wrap:balance}
+h2{font-size:clamp(1.7rem,4vw,2.4rem);letter-spacing:-.02em}
+h3{font-size:1.2rem}
+.eyebrow{font:500 .75rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin:0 0 .8rem}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)}
+section{padding-block:clamp(3rem,8vw,5.5rem)}
+.lede{max-width:62ch;color:var(--muted);margin:.9rem 0 0}
+
+/* nav */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+nav{display:flex;align-items:center;gap:1rem;padding-block:.7rem;flex-wrap:wrap}
+nav .brand{font:700 1rem var(--display);text-decoration:none;margin-right:auto}
+nav a.l{font-size:.85rem;color:var(--muted);text-decoration:none;padding:.3rem .2rem}
+nav a.l:hover{color:var(--fg)}
+.toggle{background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;font:500 .78rem var(--mono);cursor:pointer}
+@media(max-width:700px){nav a.l{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(3rem,9vw,6.5rem) 2rem}
+.status{display:inline-flex;gap:.6rem;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:.35rem .9rem;font:400 .78rem var(--mono);color:var(--muted);flex-wrap:wrap}
+.dot{width:8px;height:8px;border-radius:50%;background:#43d17a;box-shadow:0 0 0 0 rgba(67,209,122,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(67,209,122,0)}100%{box-shadow:0 0 0 0 rgba(67,209,122,0)}}
+.hero h1{font-size:clamp(2.4rem,7.5vw,5rem);letter-spacing:-.035em;margin:1.4rem 0 1rem;max-width:15ch}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--blue),var(--violet) 55%,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:1.15rem;max-width:56ch;color:var(--muted);margin:0}
+.who{font:500 .85rem var(--mono);color:var(--muted);margin:2rem 0 1.4rem}
+.who b{color:var(--fg);font-weight:500}
+.cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-weight:500;padding:.7rem 1.2rem;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+.btn.primary{background:linear-gradient(100deg,var(--blue),var(--violet));border-color:transparent;color:#0b0d12}
+:root[data-theme="light"] .btn.primary{color:#fff}
+.btn:hover{transform:translateY(-1px)}
+
+/* case study */
+.case{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(1rem,3vw,1.8rem);box-shadow:0 0 60px var(--glow)}
+.diagram{overflow-x:auto}
+.diagram svg{display:block;min-width:760px;width:100%;height:auto}
+.node rect{fill:var(--surface2);stroke:var(--line);stroke-width:1.2}
+.node.key rect{stroke:var(--blue)}
+.node.human rect{stroke:var(--cyan)}
+.node .t{fill:var(--fg);font:700 13px var(--display)}
+.node .s{fill:var(--muted);font:400 10.5px var(--mono)}
+.edge{fill:none;stroke:var(--blue);stroke-width:1.6;stroke-dasharray:5 6;animation:flow 1.6s linear infinite;opacity:.85}
+.edge.h{stroke:var(--cyan)}
+.head{fill:var(--blue)}
+.head.h{fill:var(--cyan)}
+@keyframes flow{to{stroke-dashoffset:-22}}
+.diagram figcaption{font:400 .75rem var(--mono);color:var(--muted);margin-top:.8rem}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.4rem;margin-top:1.6rem}
+.facts h3{font-size:1rem;margin-bottom:.4rem}
+.facts p{margin:0;color:var(--muted);font-size:.95rem}
+.stack{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.4rem 0 0;padding:0;list-style:none}
+.stack li{font:400 .75rem var(--mono);border:1px solid var(--line);border-radius:6px;padding:.2rem .55rem;color:var(--muted)}
+.links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.4rem;font:500 .85rem var(--mono)}
+.links a{color:var(--blue)}
+
+/* projects */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1.2rem;margin-top:2rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.4rem;display:flex;flex-direction:column;gap:.7rem;min-width:0}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.card .stack{margin-top:auto;padding-top:.6rem}
+.card.todo{border-style:dashed;background:transparent}
+.tag{font:500 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--violet)}
+
+/* timeline */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:2.5rem;margin-top:2rem}
+.tl{list-style:none;margin:0;padding:0 0 0 1.2rem;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:1.5rem}
+.tl li{position:relative}
+.tl li::before{content:"";position:absolute;left:calc(-1.2rem - 4.5px);top:.5rem;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.tl .d{font:400 .75rem var(--mono);color:var(--cyan)}
+.tl h3{font-size:1.02rem;margin:.15rem 0}
+.tl p{margin:0;color:var(--muted);font-size:.92rem}
+h3.col{font-size:.8rem;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1.4rem;margin-top:2rem}
+.skills h3{font-size:.95rem;margin-bottom:.6rem}
+.skills .stack{margin:0}
+.skills .stack li{transition:color .15s,border-color .15s}
+.skills .stack li:hover{color:var(--fg);border-color:var(--blue)}
+.note{font:400 .78rem var(--mono);color:var(--muted);margin-top:1.4rem}
+
+/* lessons */
+.lessons{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.lesson{display:grid;grid-template-columns:minmax(0,1fr);gap:.5rem;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.3rem}
+.lesson .did{font:400 .82rem var(--mono);color:var(--muted)}
+.lesson b{color:var(--fg);font-weight:500}
+.lesson p{margin:0}
+.lesson .fix{color:var(--cyan)}
+
+/* certs + contact */
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1.2rem;margin-top:2rem}
+.certs a{text-decoration:none}
+.certs .card:hover{border-color:var(--blue)}
+.contact{text-align:left}
+.contact h2{font-size:clamp(2rem,5vw,3.2rem);max-width:18ch}
+.rows{display:flex;flex-direction:column;gap:.7rem;margin-top:2rem;font:400 .95rem var(--mono)}
+.rows div{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
+.rows .k{color:var(--muted);min-width:5.5rem}
+.rows a{color:var(--blue);overflow-wrap:anywhere}
+.copy{font:500 .72rem var(--mono);background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:.2rem .6rem;cursor:pointer}
+footer{border-top:1px solid var(--line);padding-block:1.6rem;font:400 .75rem var(--mono);color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.edge,.dot{animation:none}html{scroll-behavior:auto}.btn:hover{transform:none}}
+
+/* projects v2 */
+:root{--ok:#43d17a}
+:root[data-theme="light"]{--ok:#167a43}
+.group{margin-top:3rem}
+.group>h3.col{margin-bottom:1rem}
+.plist{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:1.2rem;align-items:start}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:14px;min-width:0}
+.proj[open]{grid-column:1/-1;box-shadow:0 0 60px var(--glow)}
+.proj>summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:.6rem;padding:1.3rem}
+.proj>summary::-webkit-details-marker{display:none}
+.proj>summary:hover h3{color:var(--blue)}
+.proj .one{color:var(--muted);font-size:.95rem}
+.proj .stack{margin:0}
+.open{font:500 .78rem var(--mono);color:var(--blue)}
+.open::before{content:"Open case study  +"}
+.proj[open] .open::before{content:"Close case study  \2212"}
+.body{padding:1.4rem 1.3rem 1.5rem;display:flex;flex-direction:column;gap:1.6rem;border-top:1px solid var(--line)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:1.4rem}
+.body h4{font:500 .72rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin:0 0 .5rem}
+.body p,.body li{color:var(--muted);font-size:.95rem;margin:0}
+.body b{color:var(--fg);font-weight:500}
+.body code{font:400 .85em var(--mono);color:var(--fg)}
+ul.pts{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.5rem}
+.todo-box{border:1px dashed var(--violet);border-radius:12px;padding:1rem 1.2rem}
+.legend{font-size:.78rem;color:var(--muted);display:flex;gap:.5rem 1rem;flex-wrap:wrap;align-items:center;margin-top:1.4rem}
+.badge{font:500 .68rem var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:.1rem .55rem;white-space:nowrap}
+.badge.repo,.badge.code{color:var(--ok)}
+.badge.cv{color:var(--cyan)}
+.badge.plan{color:var(--violet)}
+.badge.me{color:var(--blue)}
+.arch .n.src-me rect{stroke:var(--blue);stroke-width:2}
+.badge.todo{color:var(--muted);border-style:dashed}
+.arch svg{display:block;min-width:820px;width:100%;height:auto}
+.arch .node{cursor:pointer}
+.arch .node .s{font-family:var(--body)}
+.arch .n.src-repo rect,.arch .n.src-code rect{stroke:var(--blue)}
+.arch .n.src-cv rect{stroke:var(--cyan)}
+.arch .n.src-plan rect{stroke:var(--violet)}
+.arch .n.src-todo rect{stroke:var(--violet);stroke-dasharray:5 4}
+.arch .n:hover rect{fill:var(--glow)}
+.arch .n.sel rect{stroke-width:2.6;fill:var(--glow)}
+.arch .n:focus-visible rect{stroke:var(--cyan);stroke-width:3}
+.arch .n:focus{outline:none}
+.arch .edge.plan{stroke:var(--violet)}
+.arch .lane{fill:var(--muted);font:500 10.5px var(--mono);letter-spacing:.1em}
+.detail{margin-top:1rem;border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem;background:var(--surface2);font-size:.92rem;color:var(--muted);min-height:6rem}
+.detail .nm{color:var(--fg);font:700 1rem var(--display);margin-right:.6rem}
+.detail p{margin:.5rem 0 0}
+.detail .badge{white-space:normal;display:inline-block;margin-top:.2rem}
+@media(prefers-reduced-motion:reduce){.arch .edge{animation:none}}
+</style>
+
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="brand" href="#top">Rayen Zaghdoudi</a>
+      <a class="l" href="#work">Work</a>
+      <a class="l" href="#projects">Projects</a>
+      <a class="l" href="#path">Path</a>
+      <a class="l" href="#skills">Skills</a>
+      <a class="l" href="#lessons">Lessons</a>
+      <a class="l" href="#contact">Contact</a>
+      <button class="toggle" id="theme" type="button" aria-label="Switch between dark and light theme">light / dark</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="wrap">
+
+<div class="hero">
+  <span class="status"><span class="dot" aria-hidden="true"></span>Open to a 6-month end-of-studies internship (PFE)<span aria-hidden="true">·</span>France, Switzerland, Gulf, Tunisia</span>
+  <h1>I build AI agents you can <em>trust</em>.</h1>
+  <p class="sub">Every claim traces back to a source, and nothing leaves without a human approving it. Agentic AI, NLP, RAG and MLOps, shipped end to end: data, model, API, deployment, evaluation.</p>
+  <p class="who"><b>Rayen Zaghdoudi</b> · AI engineering student, TEK-UP · Tunisia</p>
+  <div class="cta">
+    <a class="btn primary" href="#work">Explore my work</a>
+    <a class="btn" href="#contact">Contact</a>
+    <a class="btn" href="https://github.com/z-rayen" rel="noopener">GitHub</a>
+  </div>
+</div>
+
+<section id="work" aria-labelledby="w-h">
+  <p class="eyebrow">Featured case study</p>
+  <h2 id="w-h">LinkedIn Agent</h2>
+  <p class="lede">An open-source assistant for a job search. It finds offers that match my profile, prepares a CV tailored to each one (LaTeX to PDF) and a draft email, and sends only after I have read and approved it.</p>
+
+  <div class="panel" style="margin-top:1.8rem">
+    <figure class="diagram" style="margin:0">
+      <svg viewBox="0 0 960 270" role="img" aria-labelledby="d-t d-d">
+        <title id="d-t">Agent graph of the LinkedIn Agent</title>
+        <desc id="d-d">Job pages and search results feed the watch and research graphs. The research graph and the master CV feed the application graph. Its output passes grounding checks, then human approval, then a send that is a dry run by default.</desc>
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker>
+          <marker id="ahh" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head h" d="M0 0L10 5L0 10z"/></marker>
+        </defs>
+        <!-- edges -->
+        <path class="edge" d="M158 85 C185 85 185 45 208 45" marker-end="url(#ah)"/>
+        <path class="edge" d="M158 105 C185 105 185 125 208 125" marker-end="url(#ah)"/>
+        <path class="edge" d="M280 70 V100" marker-end="url(#ah)"/>
+        <path class="edge" d="M280 150 V200" marker-end="url(#ah)"/>
+        <path class="edge" d="M158 225 H208" marker-end="url(#ah)"/>
+        <path class="edge" d="M356 225 H406" marker-end="url(#ah)"/>
+        <path class="edge h" d="M554 225 H604" marker-end="url(#ahh)"/>
+        <path class="edge h" d="M752 225 H802" marker-end="url(#ahh)"/>
+        <!-- nodes -->
+        <g class="node"><rect x="10" y="62" width="148" height="52" rx="10"/><text class="t" x="24" y="85">Job pages, search</text><text class="s" x="24" y="102">untrusted data</text></g>
+        <g class="node"><rect x="10" y="200" width="148" height="52" rx="10"/><text class="t" x="24" y="223">Master CV</text><text class="s" x="24" y="240">the only source of facts</text></g>
+        <g class="node key"><rect x="208" y="20" width="148" height="50" rx="10"/><text class="t" x="222" y="42">Watch graph</text><text class="s" x="222" y="58">re-checks sources</text></g>
+        <g class="node key"><rect x="208" y="100" width="148" height="50" rx="10"/><text class="t" x="222" y="122">Research graph</text><text class="s" x="222" y="138">finds offers</text></g>
+        <g class="node key"><rect x="208" y="200" width="148" height="50" rx="10"/><text class="t" x="222" y="222">Application graph</text><text class="s" x="222" y="238">CV + email draft</text></g>
+        <g class="node key"><rect x="406" y="200" width="148" height="50" rx="10"/><text class="t" x="420" y="222">Grounding checks</text><text class="s" x="420" y="238">numbers, names, links</text></g>
+        <g class="node human"><rect x="604" y="200" width="148" height="50" rx="10"/><text class="t" x="618" y="222">Human approval</text><text class="s" x="618" y="238">I read, then confirm</text></g>
+        <g class="node human"><rect x="802" y="200" width="148" height="50" rx="10"/><text class="t" x="816" y="222">Send</text><text class="s" x="816" y="238">dry-run by default</text></g>
+      </svg>
+      <figcaption>Three LangGraph graphs run as background jobs with live progress. Source: repository README and docs.</figcaption>
+    </figure>
+  </div>
+
+  <div class="facts">
+    <div><h3>Trust by design</h3><p>Every number and claim must trace back to the master CV. The email's factual sentences are copied from the CV by code. The model only writes the subject, the opening and the closing.</p></div>
+    <div><h3>Human in the loop</h3><p>Dry-run is the default. To send, I retype the recipient address. Nothing is sent without an explicit approval.</p></div>
+    <div><h3>Security mindset</h3><p>Job pages and search results are treated as untrusted data, never as instructions to follow.</p></div>
+    <div><h3>Engineering</h3><p>Async runs with unguessable ids and restart recovery, SSE progress with single-use tickets, 12 database migrations, written architecture decisions, CI, and over 1,000 automated tests across backend, frontend and integration.</p></div>
+  </div>
+  <ul class="stack" aria-label="Stack"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>PostgreSQL + pgvector</li><li>React + TypeScript</li><li>Vite</li><li>Docker Compose</li><li>Tectonic (LaTeX)</li></ul>
+  <div class="links"><a href="https://github.com/z-rayen/linkedin-agent-saas" rel="noopener">Source on GitHub</a></div>
+</section>
+
+<section id="projects" aria-labelledby="p-h">
+  <p class="eyebrow">Projects</p>
+  <h2 id="p-h">Engineering case studies</h2>
+  <p class="lede">Grouped by how the work was done: alone, in a team, or during an internship. Open a card for the problem, approach, architecture and my own part. In the diagrams, select a block to see what it does and where the fact comes from.</p>
+  <p class="legend mono"><span class="badge repo">Verified</span> read in the repository <span class="badge me">Mine</span> confirmed by me, code not shown here <span class="badge cv">CV</span> stated on my CV <span class="badge plan">Plan</span> designed, not built yet <span class="badge todo">To confirm</span> not verified</p>
+
+  <div class="group">
+    <h3 class="col">Individual projects</h3>
+    <div class="plist">
+
+      
+
+      <details class="proj" id="rag-invoices">
+        <summary>
+          <span class="tag">Individual project · Academic coursework</span>
+          <h3>rag-invoices</h3>
+          <span class="one">Invoice question answering that combines LLM-extracted metadata with semantic search, so questions can mix meaning and exact conditions.</span>
+          <ul class="stack"><li>Qdrant</li><li>LangChain</li><li>Groq LLM</li><li>Pydantic</li><li>sentence-transformers</li></ul>
+          <span class="open"></span>
+        </summary>
+        <div class="body">
+          <div class="cols">
+            <div><h4>Problem</h4><p>Totals, customers and line items are locked inside PDF layouts. Semantic search over raw text cannot reliably answer questions that mix meaning with exact conditions such as a date range, a total or a customer.</p></div>
+            <div><h4>Solution</h4><p>Ingestion turns each PDF into chunks that carry structured invoice metadata in Qdrant. At query time the question becomes a metadata filter plus a semantic query, and the answer is written only from what was retrieved.</p></div>
+            <div><h4>My part</h4><p>Individual coursework: I implemented the complete RAG pipeline myself, from metadata extraction to ingestion and chat.</p></div>
+          </div>
+          <div>
+            <h4>Technical approach</h4>
+            <ul class="pts">
+              <li><b>Idempotent ingestion.</b> Every file is hashed with SHA-256 and skipped if that hash is already in Qdrant. Work is saved every 20 invoices, an interrupted run saves what it has, and a Groq configuration error stops the run instead of silently skipping files.</li>
+              <li><b>Structured extraction.</b> A Groq-hosted LLM at temperature 0 fills a Pydantic schema: invoice code, bill to, ship to, date, shipping, discount, total and line items. The prompt says to return null for missing fields and never invent values. Only the first 12,000 characters are sent.</li>
+              <li><b>Chunking and embeddings.</b> Recursive splitting at 1,000 characters with 100 overlap. Each chunk keeps the invoice metadata. Embeddings come from all-MiniLM-L6-v2.</li>
+              <li><b>Indexed metadata.</b> Qdrant payload indexes by type: keyword (invoice code, file hash), full text (customer, ship to, item names), float (total, discount, shipping) and integer (date as a timestamp).</li>
+              <li><b>Query planning.</b> One LLM call extracts filters from the question (invoice code, customer, ship to, item, date range, total range, has discount), another rewrites it into a short search query.</li>
+              <li><b>Retrieval and answer.</b> Filtered similarity search, top 5. If the filter returns nothing, the search is repeated without it. The answer prompt requires the invoice code and allows "I don't know".</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Architecture</h4>
+            <div class="arch" data-spec="invoices"><div class="diagram"><svg></svg></div><div class="detail" aria-live="polite"></div></div>
+          </div>
+          <div class="links"><a href="https://github.com/z-rayen/rag-invoices" rel="noopener">Source on GitHub</a></div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <div class="group">
+    <h3 class="col">Team projects</h3>
+    <div class="plist">
+
+      <details class="proj" id="olive-cad">
+        <summary>
+          <span class="tag">Team project · In progress</span>
+          <h3>Olive-CAD</h3>
+          <span class="one">Olive leaf disease classification: one training pipeline, four architectures compared.</span>
+          <ul class="stack"><li>ResNet50</li><li>EfficientNetB0</li><li>ConvNeXt-Tiny</li><li>Swin Transformer-Tiny</li></ul>
+          <span class="open"></span>
+        </summary>
+        <div class="body">
+          <div class="cols">
+            <div><h4>Problem</h4><p>Recognize diseases on olive leaves from photographs, and find out which kind of architecture suits the task best.</p></div>
+            <div><h4>Team process</h4><p>Team project, initiated by a teammate. I contributed the training work to the shared project.</p></div>
+            <div><h4>My part</h4><p>I implemented the training pipeline and trained ResNet50, EfficientNetB0, ConvNeXt-Tiny and Swin Transformer-Tiny.</p></div>
+          </div>
+          <div>
+            <h4>Models compared</h4>
+            <ul class="stack" style="margin:0"><li>ResNet50 · convolutional</li><li>EfficientNetB0 · convolutional</li><li>ConvNeXt-Tiny · modernized convolutional</li><li>Swin Transformer-Tiny · transformer</li></ul>
+            <p style="margin-top:.8rem"><b>Status: ongoing experimentation.</b> Results are not published yet because evaluation is still in progress. A comparison table will be added when it is final.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="proj" id="adforgex">
+        <summary>
+          <span class="tag">Team project · collaborative</span>
+          <h3>AdForgeX</h3>
+          <span class="one">An integrated AI platform for advertising: it researches the market, the audience and the product image before it writes a single line of copy.</span>
+          <ul class="stack"><li>FastAPI</li><li>6-step LLM pipeline</li><li>RAG · ChromaDB</li><li>Vision LLM</li><li>Playwright</li><li>React + TypeScript</li></ul>
+          <span class="open"></span>
+        </summary>
+        <div class="body">
+          <div class="cols">
+            <div><h4>Problem</h4><p>Ad copy written from a product name alone ignores what competitors say, what buyers struggle with and what the product looks like. AdForgeX treats ad creation as research first, generation second.</p></div>
+            <div><h4>Solution</h4><p>One full-stack application that runs six chained steps, each using the output of the previous ones: product analysis, competitor intelligence, image analysis, audience insights, ad strategy, ad generation. The result is a hook, a caption, a call to action and visual recommendations.</p></div>
+            <div><h4>My part</h4><ul class="pts"><li>RAG-based automated replies to social media comments.</li><li>Sentiment analysis of comments with a Hugging Face sentiment model.</li><li>Automated comment management and response.</li></ul><p style="margin-top:.6rem">The rest of the platform (strategy selection, competitor analysis, content generation and the other components) is team work.</p></div>
+          </div>
+          <div>
+            <h4>Technical approach</h4>
+            <ul class="pts">
+              <li><b>Orchestration.</b> <code>pipeline.py</code> runs the six steps. Progress is streamed to the React dashboard over Server-Sent Events, one update per step.</li>
+              <li><b>Retrieval (RAG).</b> ChromaDB holds high-performing ad patterns, embedded with all-MiniLM-L6-v2 and retrieved top-5 by default. Each finished run saves the scraped ads and image descriptions back, so the knowledge base grows.</li>
+              <li><b>Competitor intelligence.</b> Playwright scrapes competitor product listings and reviews, with a configurable timeout (15 s by default).</li>
+              <li><b>Vision.</b> A multimodal model (Llama 4 Scout through Groq) extracts visual selling points. A validation step detects an image that does not match the product before the full pipeline runs.</li>
+              <li><b>Text generation.</b> Llama 3.3 70B through Groq. Prompt templates and step runners are kept in separate modules.</li>
+              <li><b>Platform.</b> JWT authentication with SQLite, Docker Compose with development and production profiles, Nginx reverse proxy.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Architecture</h4>
+            <div class="arch" data-spec="adforgex"><div class="diagram"><svg></svg></div><div class="detail" aria-live="polite"></div></div>
+          </div>
+          <div class="links"><a href="https://github.com/z-rayen/adforgex" rel="noopener">Public platform repository on GitHub</a></div>
+          <p class="mono" style="font-size:.78rem">My modules (comment replies and sentiment analysis) are in a private repository and are not linked.</p>
+        </div>
+      </details>
+
+      <details class="proj" id="vishguard">
+        <summary>
+          <span class="tag">Team project · team of 4 · In progress</span>
+          <h3>VishGuard</h3>
+          <span class="one">Real-time detection of vishing (voice phishing) from the call audio and its transcript, built by four people who each own one modality.</span>
+          <ul class="stack"><li>Multimodal fusion</li><li>XLM-R</li><li>wav2vec2 / Whisper</li><li>eGeMAPS</li><li>DVC</li></ul>
+          <span class="open"></span>
+        </summary>
+        <div class="body">
+          <div class="cols">
+            <div><h4>Problem</h4><p>Detect vishing calls as they happen, across English, French and Arabic, and check that a model trained on synthetic calls still works on data it has not seen.</p></div>
+            <div><h4>Team process</h4><p>Four people, one per modality: text, self-supervised audio, prosody, and fusion with robustness. Two-week sprints, the first from 8 November 2026. Everyone works on a separate git branch.</p></div>
+            <div><h4>My part so far</h4><p>Audio embedding extraction with a pretrained audio model. The downstream classification model and the evaluation are not done yet.</p></div>
+          </div>
+          <div>
+            <h4>Technical approach (team blueprint)</h4>
+            <ul class="pts">
+              <li><b>Data.</b> VISHGUARD, a synthetic multilingual corpus of 3,059 calls in English, French and Arabic, versioned with DVC on S3. ASLC-448, an Arabic corpus, is kept as out-of-domain validation.</li>
+              <li><b>Modalities.</b> Text with XLM-R, audio with wav2vec2 or Whisper embeddings, prosody with eGeMAPS features.</li>
+              <li><b>Fusion.</b> Cross-attention between modalities, plus an audit of bias introduced by the text-to-speech used to make the synthetic calls.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Architecture: done and planned</h4>
+            <div class="arch" data-spec="vishguard"><div class="diagram"><svg></svg></div><div class="detail" aria-live="polite"></div></div>
+          </div>
+        </div>
+      </details>
+
+      
+
+    </div>
+  </div>
+
+  <div class="group">
+    <h3 class="col">Internship projects</h3>
+    <div class="plist">
+
+      <details class="proj" id="intern-linkedin">
+        <summary>
+          <span class="tag">Internship · Microedition · Jul – Aug 2026</span>
+          <h3>LinkedIn Agent</h3>
+          <span class="one">The agent from the featured case study above: three LangGraph graphs, grounding checks and human approval.</span>
+          <ul class="stack"><li>LangGraph</li><li>FastAPI</li><li>PostgreSQL + pgvector</li></ul>
+          <span class="open"></span>
+        </summary>
+        <div class="body">
+          <p>The full case study, with its architecture diagram, is in the section above.</p>
+          <div class="links"><a href="#work">Go to the case study</a><a href="https://github.com/z-rayen/linkedin-agent-saas" rel="noopener">Source on GitHub</a></div>
+        </div>
+      </details>
+
+      <details class="proj" id="waste">
+        <summary>
+          <span class="tag">Internship · Microedition · Jun – Jul 2025</span>
+          <h3>Waste detection and classification</h3>
+          <span class="one">An intelligent system that identifies and classifies waste from images, explored as part of an IoT solution.</span>
+          <ul class="stack"><li>Computer vision</li><li>Machine learning</li><li>IoT</li></ul>
+          <span class="open"></span>
+        </summary>
+        <div class="body">
+          <div class="cols">
+            <div><h4>Problem</h4><p>Recognize categories of waste from images so that an IoT application can use the result.</p></div>
+            <div><h4>Approach (from my CV)</h4><p>Image processing and machine learning classification models, and an exploration of how image analysis could be integrated into an IoT system.</p></div>
+            <div><h4>My part</h4><p>Individual internship work, per my CV.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="proj" id="doctor-skin">
+        <summary>
+          <span class="tag">Internship · AlchemyCode · Feb – Jun 2024</span>
+          <h3>Doctor Skin</h3>
+          <span class="one">A Flutter mobile app that sends skin images to a fine-tuned CNN and ResNet model.</span>
+          <ul class="stack"><li>Flutter</li><li>Node.js + Express</li><li>CNN</li><li>ResNet</li></ul>
+          <span class="open"></span>
+        </summary>
+        <div class="body">
+          <div class="cols">
+            <div><h4>Problem</h4><p>Bring skin image classification into a mobile application.</p></div>
+            <div><h4>Approach (from my CV)</h4><p>CNN and ResNet architectures, including fine-tuning a deep learning model for image classification, connected to the mobile app through backend services in Node.js and Express.</p></div>
+            <div><h4>My part</h4><p>Contributed to the app, the backend services and the model work, per my CV.</p></div>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section id="path" aria-labelledby="t-h">
+  <p class="eyebrow">Path</p>
+  <h2 id="t-h">Experience and education</h2>
+  <div class="two">
+    <div>
+      <h3 class="col">Internships</h3>
+      <ol class="tl" style="margin-top:1.2rem">
+        <li><span class="d">Jul – Aug 2026 · Mahdia</span><h3>AI Engineering Intern, Microedition</h3><p>Developed an AI-powered LinkedIn agent and worked on intelligent workflows with LLMs.</p></li>
+        <li><span class="d">Jun – Jul 2025 · Mahdia</span><h3>IoT and Machine Learning Intern, Microedition</h3><p>A waste detection and classification system using machine learning and computer vision.</p></li>
+        <li><span class="d">Feb – Jun 2024 · Sousse</span><h3>AI and Software Development Intern, AlchemyCode</h3><p>Doctor Skin: a Flutter mobile app with a Node.js and Express backend, and CNN and ResNet fine-tuning for skin image classification.</p></li>
+        <li><span class="d">Jun – Jul 2023 · Sousse</span><h3>Data Science and NLP Intern, AlchemyCode</h3><p>Collected social media posts and comments and ran sentiment analysis on them.</p></li>
+      </ol>
+    </div>
+    <div>
+      <h3 class="col">Education</h3>
+      <ol class="tl" style="margin-top:1.2rem">
+        <li><span class="d">Sep 2025 – present · Ariana</span><h3>Engineering degree, Computer Science (AI and Data Science), TEK-UP</h3><p>NLP, deep learning, generative AI, LLMs, agentic AI, MLOps, cloud computing, model deployment.</p></li>
+        <li><span class="d">Sep 2024 – Jun 2025 · Mahdia</span><h3>Internet of Things studies, ISET Mahdia</h3><p>Embedded systems, networks, sensors, microcontrollers.</p></li>
+        <li><span class="d">Sep 2021 – Jun 2024 · Mahdia</span><h3>Bachelor's degree, Computer Science (Software Engineering), ISIM Mahdia</h3><p>Software engineering, OOP, databases, algorithms, operating systems.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="skills" aria-labelledby="s-h">
+  <p class="eyebrow">Skills</p>
+  <h2 id="s-h">What I work with</h2>
+  <div class="skills">
+    <div><h3>AI and ML</h3><ul class="stack"><li>LLMs</li><li>RAG</li><li>Agentic AI</li><li>LangGraph</li><li>LangChain</li><li>NLP</li><li>Prompt engineering</li><li>Fine-tuning</li><li>PyTorch</li><li>TensorFlow</li><li>Hugging Face</li><li>ChromaDB</li><li>OpenCV</li></ul></div>
+    <div><h3>Data</h3><ul class="stack"><li>Python</li><li>Pandas</li><li>NumPy</li><li>scikit-learn</li><li>SQL</li><li>PostgreSQL + pgvector</li></ul></div>
+    <div><h3>MLOps and cloud</h3><ul class="stack"><li>Docker</li><li>CI/CD</li><li>AWS</li><li>Azure</li><li>Linux</li></ul></div>
+    <div><h3>Backend and web</h3><ul class="stack"><li>FastAPI</li><li>Node.js</li><li>Streamlit</li><li>React</li><li>TypeScript</li></ul></div>
+    <div><h3>Ways of working</h3><ul class="stack"><li>Git and GitHub</li><li>Scrum</li><li>Agile</li><li>UML</li></ul></div>
+  </div>
+  <p class="note">Languages: Arabic (mother tongue), French, English.</p>
+</section>
+
+<section aria-labelledby="c-h">
+  <p class="eyebrow">Certifications</p>
+  <h2 id="c-h">Verified credentials</h2>
+  <div class="certs">
+    <a href="https://www.credly.com/badges/604502a7-5fca-431b-bdce-7a733cdd0743/public_url" rel="noopener"><div class="card"><span class="tag">Amazon Web Services</span><h3>AWS Certified Solutions Architect – Associate</h3><p>Designing secure, resilient, high-performing and cost-optimized architectures on AWS.</p><span class="links" style="margin:0"><span style="color:var(--blue)">Verify on Credly</span></span></div></a>
+    <a href="https://www.credly.com/badges/b413f651-f6d2-402b-912c-aeff1189bead/public_url" rel="noopener"><div class="card"><span class="tag">Python Institute</span><h3>PCAP – Certified Associate Python Programmer</h3><p>Score 87%. Python, object-oriented programming, modules, exceptions.</p><span class="links" style="margin:0"><span style="color:var(--blue)">Verify on Credly</span></span></div></a>
+  </div>
+</section>
+
+<section id="lessons" aria-labelledby="l-h">
+  <p class="eyebrow">Lessons from building</p>
+  <h2 id="l-h">Three things that broke, and what I changed</h2>
+  <div class="lessons">
+    <div class="lesson">
+      <h3>The model rewrote my CV</h3>
+      <p class="did"><b>What happened:</b> in the first real run, the model turned "built" into "designing and deploying" and merged two facts into one sentence. My word-level check let it through.</p>
+      <p class="fix"><b>What I changed:</b> factual sentences are now copied from the master CV by code. The model writes only the subject, the opening and the closing.</p>
+    </div>
+    <div class="lesson">
+      <h3>Research that invented companies</h3>
+      <p class="did"><b>What happened:</b> a research run returned companies that were not in any source.</p>
+      <p class="fix"><b>What I changed:</b> capitalized names and job titles must now appear in a cited source, and any link or address missing from the master CV is refused as an unknown source.</p>
+    </div>
+    <div class="lesson">
+      <h3>A profile page that returned 500</h3>
+      <p class="did"><b>What happened:</b> saving the master CV created a half-empty profile row, and reading it crashed on the empty fields.</p>
+      <p class="fix"><b>What I changed:</b> safe defaults for every base field, plus regression tests for that path.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact" aria-labelledby="k-h">
+  <p class="eyebrow">Contact</p>
+  <h2 id="k-h">Have an interesting problem to solve?</h2>
+  <p class="lede">I am looking for a 6-month end-of-studies internship on agentic AI, NLP, RAG and MLOps. The fastest way to reach me is LinkedIn or email.</p>
+  <div class="rows">
+    <div><span class="k">LinkedIn</span><a href="https://linkedin.com/in/rayen-zaghdoudi-362763231" rel="noopener">linkedin.com/in/rayen-zaghdoudi-362763231</a></div>
+    <div><span class="k">GitHub</span><a href="https://github.com/z-rayen" rel="noopener">github.com/z-rayen</a></div>
+    <div><span class="k">Email</span><span id="mail">rayenzaghdoudi6@gmail.com</span><button class="copy" id="copy" type="button">Copy</button></div>
+  </div>
+</section>
+
+</div>
+</main>
+<footer><div class="wrap">© Rayen Zaghdoudi · Content from my CV and public repositories.</div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('theme');
+  try{var s=localStorage.getItem('theme');if(s==='light')root.setAttribute('data-theme','light');}catch(e){}
+  btn.addEventListener('click',function(){
+    var light=root.getAttribute('data-theme')==='light';
+    if(light)root.removeAttribute('data-theme');else root.setAttribute('data-theme','light');
+    try{localStorage.setItem('theme',light?'dark':'light');}catch(e){}
+  });
+  var c=document.getElementById('copy'),m=document.getElementById('mail');
+  c.addEventListener('click',function(){
+    function done(){c.textContent='Copied';setTimeout(function(){c.textContent='Copy';},1500);}
+    function sel(){var r=document.createRange();r.selectNodeContents(m);var g=getSelection();g.removeAllRanges();g.addRange(r);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(m.textContent).then(done,sel);}else sel();
+  });
+})();
+</script>
+<script>
+(function(){
+var NS="http://www.w3.org/2000/svg";
+var SRC={repo:["Verified","Read in the README"],code:["Verified","Read in the source code"],cv:["CV","Stated on my CV"],plan:["Plan","Team plan, not built yet"],me:["Mine","Confirmed by me, code not shown here"],todo:["To confirm","Not verified, to confirm"]};
+function N(id,x,y,w,h,t,s,src,d){return{id:id,x:x,y:y,w:w,h:h,t:t,s:s,src:src,d:d};}
+var SPECS={
+adforgex:{w:850,h:392,label:"AdForgeX architecture",start:"api",
+ nodes:[
+  N("ui",10,160,150,64,"React dashboard","product form in|live progress out","repo","React 18, TypeScript and Vite with CSS modules. Pages: Dashboard and AuthPage. Components include ProductForm, Results and PipelineTracker. In the default setup the FastAPI backend serves the built frontend."),
+  N("api",185,160,150,64,"FastAPI backend","JWT auth|SSE stream","repo","POST /pipeline/generate runs the whole pipeline and answers with a Server-Sent Events stream: one event per step, then the final ad result. Users are stored in SQLite and authenticated with JWT. /rag/ingest and /rag/search expose the knowledge base."),
+  N("s1",370,10,220,48,"1 · Product analysis","USPs, pain points, selling points","repo","Extracts USPs, pain points and key selling points, using patterns retrieved from the RAG knowledge base."),
+  N("s2",370,74,220,48,"2 · Competitor intel","scrapes listings, finds gaps","repo","Scrapes competitor listings and analyzes gaps in market positioning."),
+  N("s3",370,138,220,48,"3 · Image analysis","validates image, extracts cues","repo","Checks that the uploaded image matches the product, then extracts visual selling cues."),
+  N("s4",370,202,220,48,"4 · Audience insights","pain points, questions, uses","repo","Synthesizes user pain points, questions and use cases."),
+  N("s5",370,266,220,48,"5 · Ad strategy","picks a messaging angle","repo","Selects the best messaging angle (problem-solution, UGC, luxury, fear and others). This is the step closest to a recommendation component. The README does not describe a trained recommender model."),
+  N("s6",370,330,220,48,"6 · Ad generation","hook, caption, CTA, visuals","repo","Produces the final hook, caption, call to action and visual recommendations."),
+  N("rag",650,10,190,48,"ChromaDB (RAG)","all-MiniLM-L6-v2, top 5","repo","Knowledge base of high-performing ad patterns, seeded by rag/seed_data.py. After each run, scraped ads and image descriptions are written back, so later retrievals improve. Defaults: embedding model all-MiniLM-L6-v2, RAG_TOP_K = 5."),
+  N("scr",650,74,190,48,"Playwright scraper","listings and reviews","repo","Headless browser scraping of competitor product listings and reviews. Timeout is configurable, 15 s by default."),
+  N("vis",650,138,190,48,"Vision model","Llama 4 Scout via Groq","repo","Multimodal LLM that reads the uploaded product image and extracts visual selling points."),
+  N("sen",650,202,190,48,"Sentiment analysis","Hugging Face model|by me, not in README","me","My contribution: sentiment analysis of comments with a Hugging Face sentiment model. The code is in a private repository."),
+  N("llm",650,266,190,112,"Text model","Llama 3.3 70B via Groq|text generation","repo","Default text model: llama-3.3-70b-versatile through the Groq API, set by TEXT_MODEL.")
+ ],
+ edges:[["ui","api","r","l"],["api","s1","r","l"],["s1","s2","b","t"],["s2","s3","b","t"],["s3","s4","b","t"],["s4","s5","b","t"],["s5","s6","b","t"],
+  ["s1","rag","r","l"],["s2","scr","r","l"],["s3","vis","r","l"],["s4","sen","r","l","plan"],["s5","llm","r","l"],["s6","llm","r","l"]]},
+invoices:{w:910,h:292,label:"rag-invoices pipeline",start:"i3",
+ labels:[[0,14,"INGESTION · ingestion.py"],[0,190,"QUERY · chat.py"]],
+ nodes:[
+  N("i1",0,28,128,64,"PDF folder","SHA-256 dedupe","code","os.walk over the data folder (DATA_FOLDER, default data/). Each file is hashed with SHA-256. If that hash is already in Qdrant the file is skipped."),
+  N("i2",156,28,128,64,"PDF loader","text of all pages","code","PyPDFLoader from LangChain loads the PDF. The text of all pages is joined."),
+  N("i3",312,28,128,64,"LLM extraction","structured output","code","A Groq-hosted chat model (default openai/gpt-oss-20b, temperature 0) fills a Pydantic schema: invoice code, bill to, ship to, date, shipping, discount, total and line items with name, quantity and rate. The prompt says to return null for missing fields and never invent values. Only the first 12,000 characters are sent. File name, size and modification time are added to the metadata."),
+  N("i4",468,28,128,64,"Chunking","1000 chars, overlap 100","code","RecursiveCharacterTextSplitter. Every chunk carries the invoice metadata."),
+  N("i5",624,28,128,64,"Embeddings","all-MiniLM-L6-v2","code","sentence-transformers/all-MiniLM-L6-v2 through HuggingFaceEmbeddings."),
+  N("i6",782,28,128,64,"Qdrant","collection invoices_rag","code","Local Qdrant at localhost:6333. Payload indexes: keyword (invoice code, file hash), full text (customer, ship to, item names), float (total, discount, shipping) and integer (date timestamp). Saves every 20 invoices. On Ctrl-C it saves what was already extracted. It stops on Groq configuration errors."),
+  N("q1",0,204,128,64,"Question","terminal loop","code","Interactive loop in chat.py. /quit or /bye exits."),
+  N("q2",156,204,128,64,"Filter extraction","LLM fills SearchFilters","code","The LLM fills a Pydantic schema: invoice code, customer, ship to, item, date range, minimum and maximum total, has discount. Fields the question does not mention stay null. Today's date is passed in so relative dates can be resolved."),
+  N("q3",312,204,128,64,"Query rewrite","keywords only","code","The LLM rewrites the question into a short search query without answering it."),
+  N("q4",468,204,128,64,"Filtered search","top 5, filter fallback","code","Builds a Qdrant filter from the extracted fields: exact match for invoice code, text match for names and items, ranges for date and total, discount above zero. Runs a similarity search for the rewritten query, k = 5. If nothing matches with the filter, it searches again without it."),
+  N("q5",624,204,128,64,"Answer","cites invoice code","code","The LLM answers from the retrieved context only (invoice fields and chunk text), gives the invoice code, and says it does not know when the context is not enough.")
+ ],
+ edges:[["i1","i2","r","l"],["i2","i3","r","l"],["i3","i4","r","l"],["i4","i5","r","l"],["i5","i6","r","l"],["q1","q2","r","l"],["q2","q3","r","l"],["q3","q4","r","l"],["q4","q5","r","l"],["i6","q4","b","t","plan"]]},
+vishguard:{w:900,h:300,label:"VishGuard planned architecture",start:"fu",
+ labels:[[0,14,"SOLID = DONE BY ME · DASHED VIOLET = PLANNED"]],
+ nodes:[
+  N("d0",0,110,180,70,"Call data","VISHGUARD: 3,059 synthetic|calls, EN / FR / AR","plan","Synthetic multilingual corpus versioned with DVC on S3, from the project notes."),
+  N("b1",240,24,190,60,"Text branch","XLM-R","plan","Planned text modality. Each modality is owned by a different team member."),
+  N("b2",240,110,190,70,"Audio embeddings","pretrained audio model|embeddings","me","My contribution, in progress: extracting audio embeddings with a pretrained audio model."),
+  N("b3",240,206,190,60,"Prosody branch","eGeMAPS features","plan","Planned prosody modality with eGeMAPS acoustic features."),
+  N("fu",490,110,170,70,"Classification","fusion model|planned, not done","plan","Planned stage: the downstream classification model, including cross-attention fusion of the modalities. Not done yet."),
+  N("out",720,40,180,70,"Vishing detection","real time, project goal","plan","The goal of the project: detect vishing calls in real time."),
+  N("val",720,160,180,84,"Evaluation","ASLC-448, out of domain|TTS-validity bias audit","plan","Planned stage, not done: ASLC-448 (Arabic) as out-of-domain validation, and a bias audit of the text-to-speech used to build the synthetic calls. No results exist.")
+ ],
+ edges:[["d0","b1","r","l","plan"],["d0","b2","r","l"],["d0","b3","r","l","plan"],["b1","fu","r","l","plan"],["b2","fu","r","l","plan"],["b3","fu","r","l","plan"],["fu","out","r","l","plan"],["fu","val","r","l","plan"]]}
+};
+function el(n,a,t){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+function pt(n,s){return s==="r"?[n.x+n.w,n.y+n.h/2]:s==="l"?[n.x,n.y+n.h/2]:s==="b"?[n.x+n.w/2,n.y+n.h]:[n.x+n.w/2,n.y];}
+function route(a,b,fs,ts){var p=pt(a,fs),q=pt(b,ts),h=(fs==="r"||fs==="l");var o=h?Math.max(24,Math.abs(q[0]-p[0])/2):Math.max(8,Math.abs(q[1]-p[1])/2);
+ var c1=h?[p[0]+o,p[1]]:[p[0],p[1]+o],c2=h?[q[0]-o,q[1]]:[q[0],q[1]-o];return"M"+p+" C"+c1+" "+c2+" "+q;}
+function build(host){
+ var key=host.getAttribute("data-spec"),S=SPECS[key];if(!S)return;
+ var svg=host.querySelector("svg"),panel=host.querySelector(".detail"),by={},groups={};
+ svg.setAttribute("viewBox","0 0 "+S.w+" "+S.h);svg.setAttribute("role","group");svg.setAttribute("aria-label",S.label);
+ var defs=el("defs",{});
+ [["b","--blue"],["p","--violet"]].forEach(function(m){var mk=el("marker",{id:"mk-"+key+m[0],viewBox:"0 0 10 10",refX:"9",refY:"5",markerWidth:"7",markerHeight:"7",orient:"auto"});mk.appendChild(el("path",{d:"M0 0L10 5L0 10z",style:"fill:var("+m[1]+")"}));defs.appendChild(mk);});
+ svg.appendChild(defs);
+ (S.labels||[]).forEach(function(l){svg.appendChild(el("text",{x:l[0],y:l[1],"class":"lane"},l[2]));});
+ S.nodes.forEach(function(n){by[n.id]=n;});
+ S.edges.forEach(function(e){var plan=e[4]==="plan";svg.appendChild(el("path",{d:route(by[e[0]],by[e[1]],e[2],e[3]),"class":"edge"+(plan?" plan":""),"marker-end":"url(#mk-"+key+(plan?"p":"b")+")"}));});
+ function select(id){var n=by[id];for(var k in groups)groups[k].classList.toggle("sel",k===id);
+  panel.textContent="";var nm=document.createElement("span");nm.className="nm";nm.textContent=n.t;var b=document.createElement("span");b.className="badge "+n.src;b.textContent=SRC[n.src][0]+" · "+SRC[n.src][1];
+  var p=document.createElement("p");p.textContent=n.d;panel.appendChild(nm);panel.appendChild(b);panel.appendChild(p);}
+ S.nodes.forEach(function(n){
+  var g=el("g",{"class":"node n src-"+n.src,tabindex:"0",role:"button","aria-label":n.t+". "+SRC[n.src][1]});
+  g.appendChild(el("rect",{x:n.x,y:n.y,width:n.w,height:n.h,rx:10}));
+  var lines=n.s.split("|"),total=17+lines.length*13,y0=n.y+(n.h-total)/2+13;
+  g.appendChild(el("text",{"class":"t",x:n.x+12,y:y0},n.t));
+  lines.forEach(function(l,i){g.appendChild(el("text",{"class":"s",x:n.x+12,y:y0+16+i*13},l));});
+  g.addEventListener("click",function(){select(n.id);});
+  g.addEventListener("keydown",function(ev){if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();select(n.id);}});
+  groups[n.id]=g;svg.appendChild(g);});
+ select(S.start);
+}
+Array.prototype.forEach.call(document.querySelectorAll(".arch"),build);
+function openHash(){var h=location.hash.slice(1),d=h&&document.getElementById(h);if(d&&d.tagName==="DETAILS")d.open=true;}
+openHash();window.addEventListener("hashchange",openHash);
+})();
+</script>
+</body>
+</html>
